@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Фото с камеры</title>
+</head>
+<body>
+  <h2>Фото с вашей камеры</h2>
+  <video id="video" autoplay playsinline width="320" height="240"></video>
+  <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+  <br>
+  <button id="photoBtn">Сделать фото</button>
+  <br><br>
+  <img id="photo" alt="Ваше фото появится тут" style="display:none; border:1px solid #ccc;">
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const photoBtn = document.getElementById('photoBtn');
+    const photo = document.getElementById('photo');
 
+    // Запросить доступ к камере
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+      })
+      .catch(err => {
+        alert("Ошибка доступа к камере: " + err.message);
+      });
+
+    // Сделать фото
+    photoBtn.onclick = function() {
+      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      photo.src = canvas.toDataURL('image/png');
+      photo.style.display = 'block';
+    };
+  </script>
+</body>
+</html>
