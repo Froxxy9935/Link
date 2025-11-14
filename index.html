@@ -75,21 +75,74 @@
         opacity: 0.6;
     }
 
+    /* Hero section */
+    .hero {
+        height: 100vh;
+        background: url('photo2.jpg') center/cover no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+
+    .hero::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+    }
+
+    .hero-text {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-text h1 {
+        font-size: 4rem;
+        margin: 0;
+    }
+
+    .hero-text p {
+        font-size: 1.5rem;
+        margin: 10px 0 20px 0;
+    }
+
+    .hero-text .btn {
+        padding: 12px 30px;
+        background: #111;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 4px;
+        transition: 0.3s;
+    }
+
+    .hero-text .btn:hover {
+        opacity: 0.8;
+    }
+
     /* Gallery */
     .gallery {
-        max-width: 1400px;
+        max-width: 1200px;
         margin: 60px auto;
         padding: 0 20px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
     }
 
     .gallery img {
         width: 100%;
-        height: 400px;
+        height: auto;
         object-fit: cover;
-        border-radius: 4px;
+        border-radius: 6px;
+        transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+        transform: scale(1.05);
     }
 
     /* Footer */
@@ -120,18 +173,31 @@
 
 <!-- Fullscreen menu -->
 <nav class="fullscreen-menu" id="fullscreenMenu">
-    <a href="#">Portfolio</a>
+    <a href="#gallery">Portfolio</a>
     <a href="#">Pricing</a>
     <a href="#">Contact</a>
 </nav>
 
+<!-- Hero section -->
+<section class="hero">
+    <div class="hero-text">
+        <h1>Yuliya Komarovska</h1>
+        <p>Professional Photographer</p>
+        <a href="#gallery" class="btn">Посмотреть портфолио</a>
+    </div>
+</section>
+
 <!-- Gallery -->
-<section class="gallery">
-    <img src="photo1.jpg" alt="Photo 1" />
-    <img src="" alt="" />
-    <img src="" alt="" />
-    <img src="" alt="" />
-    <img src="" alt="" />
+<section class="gallery" id="gallery">
+    <img src="photo2.jpg" alt="Photo 2">
+    <img src="photo3.jpg" alt="Photo 3">
+    <img src="photo4.jpg" alt="Photo 4">
+    <img src="photo5.jpg" alt="Photo 5">
+    <img src="photo6.jpg" alt="Photo 6">
+    <img src="photo7.jpg" alt="Photo 7">
+    <img src="photo8.jpg" alt="Photo 8">
+    <img src="photo9.jpg" alt="Photo 9">
+    <img src="photo10.jpg" alt="Photo 10">
 </section>
 
 <!-- Footer -->
@@ -148,14 +214,12 @@
         fullscreenMenu.style.display = fullscreenMenu.style.display === 'flex' ? 'none' : 'flex';
     });
 
-    // Close menu when clicking a link
     fullscreenMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             fullscreenMenu.style.display = 'none';
         });
     });
 
-    // Close menu when clicking outside
     window.addEventListener('click', (e) => {
         if (!hamburger.contains(e.target) && !fullscreenMenu.contains(e.target)) {
             fullscreenMenu.style.display = 'none';
