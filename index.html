@@ -30,29 +30,12 @@
         letter-spacing: 0.5px;
     }
 
-    /* Основное меню */
-    .menu {
-        display: flex;
-        gap: 20px;
-    }
-
-    .menu a {
-        text-decoration: none;
-        color: #111;
-        font-size: 15px;
-    }
-
-    .menu a:hover {
-        opacity: 0.7;
-    }
-
-    /* Гамбургер (всегда виден) */
+    /* Гамбургер */
     .hamburger {
         display: flex;
         flex-direction: column;
         cursor: pointer;
         gap: 5px;
-        margin-left: 20px;
     }
 
     .hamburger div {
@@ -61,7 +44,7 @@
         background-color: #111;
     }
 
-    /* Мобильное/плавающее меню */
+    /* Плавающее меню */
     .mobile-menu {
         display: none;
         position: absolute;
@@ -123,15 +106,6 @@
 <header>
     <div class="logo">Yuliya Komarovska</div>
 
-    <!-- Меню для ПК -->
-    <nav class="menu">
-        <a href="#">Профиль</a>
-        <a href="#">Цены</a>
-        <a href="#">Портфолио</a>
-        <a href="#">Услуги</a>
-        <a href="#">Контакты</a>
-    </nav>
-
     <!-- Гамбургер -->
     <div class="hamburger" id="hamburger">
         <div></div>
@@ -144,13 +118,15 @@
         <a href="#">Портфолио</a>
         <a href="#">Услуги</a>
         <a href="#">Контакты</a>
+        <a href="#">Профиль</a>
+        <a href="#">Цены</a>
     </nav>
 </header>
 
 <!-- Галерея -->
 <section class="gallery">
-    <img src="hero.jpg" alt="Главное фото" />
     <img src="photo1.jpg" alt="Фото 1" />
+    <img src="" alt="" />
     <img src="" alt="" />
     <img src="" alt="" />
     <img src="" alt="" />
