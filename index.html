@@ -20,9 +20,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        position: relative;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: #fff;
         border-bottom: 1px solid #eee;
-        z-index: 20;
+        z-index: 100;
     }
 
     .logo {
@@ -37,12 +40,8 @@
         flex-direction: column;
         cursor: pointer;
         gap: 5px;
-        z-index: 25;
+        z-index: 110;
         transition: transform 0.3s;
-    }
-
-    .hamburger:hover {
-        transform: scale(1.2);
     }
 
     .hamburger div {
@@ -71,7 +70,7 @@
         width: 100%;
         height: 100%;
         background: #fff;
-        z-index: 100;
+        z-index: 105;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -100,6 +99,7 @@
         text-align: center;
         color: white;
         position: relative;
+        margin-top: 60px; /* чтобы header не перекрывал */
     }
 
     .hero::after {
@@ -164,7 +164,7 @@
         object-fit: cover;
         border-radius: 6px;
         transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
-        opacity: 0; /* для появления при скролле */
+        opacity: 0;
     }
 
     .gallery img:hover {
@@ -213,16 +213,16 @@
 </section>
 
 <section class="gallery" id="gallery">
-    <img src="photo1.jpg" alt="Photo 1" class="fade">
-    <img src="photo2.jpg" alt="Photo 2" class="fade">
-    <img src="photo3.jpg" alt="Photo 3" class="fade">
-    <img src="photo4.jpg" alt="Photo 4" class="fade">
-    <img src="photo5.jpg" alt="Photo 5" class="fade">
-    <img src="photo6.jpg" alt="Photo 6" class="fade">
-    <img src="photo7.jpg" alt="Photo 7" class="fade">
-    <img src="photo8.jpg" alt="Photo 8" class="fade">
-    <img src="photo9.jpg" alt="Photo 9" class="fade">
-    <img src="photo10.jpg" alt="Photo 10" class="fade">
+    <img src="photo1.jpg" alt="Photo 1">
+    <img src="photo2.jpg" alt="Photo 2">
+    <img src="photo3.jpg" alt="Photo 3">
+    <img src="photo4.jpg" alt="Photo 4">
+    <img src="photo5.jpg" alt="Photo 5">
+    <img src="photo6.jpg" alt="Photo 6">
+    <img src="photo7.jpg" alt="Photo 7">
+    <img src="photo8.jpg" alt="Photo 8">
+    <img src="photo9.jpg" alt="Photo 9">
+    <img src="photo10.jpg" alt="Photo 10">
 </section>
 
 <footer>
