@@ -43,15 +43,14 @@
         /* Hero фото */
         .hero {
             width: 100%;
-            height: 90vh;
+            max-height: 600px; /* ограничение высоты */
             overflow: hidden;
-            position: relative;
         }
 
         .hero img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto; /* сохраняем пропорции */
+            display: block;
         }
 
         /* Галерея */
@@ -105,7 +104,6 @@
     <!-- Галерея -->
     <section class="gallery">
         <img src="photo1.jpg" alt="Фото 1" />
-        <!-- Остальные фото пока пустые -->
         <img src="" alt="" />
         <img src="" alt="" />
         <img src="" alt="" />
