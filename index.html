@@ -39,6 +39,11 @@
         cursor: pointer;
         gap: 5px;
         z-index: 25;
+        transition: transform 0.3s;
+    }
+
+    .hamburger:hover {
+        transform: scale(1.2); /* hover эффект */
     }
 
     .hamburger div {
@@ -46,6 +51,17 @@
         height: 3px;
         background-color: #111;
         transition: 0.3s;
+    }
+
+    /* Анимация крестика при открытом меню */
+    .hamburger.active div:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active div:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active div:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
     }
 
     /* Fullscreen menu */
@@ -214,18 +230,21 @@
     const fullscreenMenu = document.getElementById('fullscreenMenu');
 
     hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active'); // крестик
         fullscreenMenu.style.display = fullscreenMenu.style.display === 'flex' ? 'none' : 'flex';
     });
 
     fullscreenMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             fullscreenMenu.style.display = 'none';
+            hamburger.classList.remove('active'); // возвращаем гамбургер в исходное состояние
         });
     });
 
     window.addEventListener('click', (e) => {
         if (!hamburger.contains(e.target) && !fullscreenMenu.contains(e.target)) {
             fullscreenMenu.style.display = 'none';
+            hamburger.classList.remove('active');
         }
     });
 </script>
