@@ -1,4 +1,13 @@
-header {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamburger Test</title>
+<style>
+  body { margin: 0; font-family: sans-serif; }
+
+  header {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,24 +17,101 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px; /* отступ слева и справа */
+    padding: 0 15px; /* уменьшено на 5px */
     border-bottom: 1px solid #eee;
     z-index: 100;
     box-sizing: border-box;
-}
+  }
 
-.hamburger {
+  .hamburger {
     width: 30px;
     height: 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
-}
+    transition: transform 0.3s;
+  }
 
-.hamburger div {
+  .hamburger div {
     height: 4px;
     background: #111;
     border-radius: 2px;
     transition: all 0.3s ease;
-}
+  }
+
+  .hamburger.active div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .hamburger.active div:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  .fullscreen-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 90;
+  }
+
+  .fullscreen-menu a {
+    font-size: 2rem;
+    margin: 20px 0;
+    text-decoration: none;
+    color: #111;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Logo</div>
+  <div class="hamburger" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</header>
+
+<nav class="fullscreen-menu" id="menu">
+  <a href="#">Home</a>
+  <a href="#">Portfolio</a>
+  <a href="#">Contact</a>
+</nav>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('menu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  });
+
+  menu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.style.display = 'none';
+      hamburger.classList.remove('active');
+    });
+  });
+
+  window.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !menu.contains(e.target)) {
+      menu.style.display = 'none';
+      hamburger.classList.remove('active');
+    }
+  });
+</script>
+
+</body>
+</html>
