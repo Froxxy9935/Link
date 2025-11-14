@@ -3,10 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hamburger Test</title>
+<title>Photographer — Yuliya Komarovska</title>
 <style>
-  body { margin: 0; font-family: sans-serif; }
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #ffffff;
+    color: #111;
+  }
 
+  /* Header */
   header {
     position: fixed;
     top: 0;
@@ -17,12 +23,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15px; /* уменьшено на 5px */
+    padding: 0 15px; /* сдвиг на 5px от края */
     border-bottom: 1px solid #eee;
     z-index: 100;
     box-sizing: border-box;
   }
 
+  .logo {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* Hamburger */
   .hamburger {
     width: 30px;
     height: 24px;
@@ -50,13 +63,14 @@
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
+  /* Fullscreen menu */
   .fullscreen-menu {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
-    height: 100%;
     width: 100%;
+    height: 100%;
     background: #fff;
     flex-direction: column;
     justify-content: center;
@@ -69,13 +83,53 @@
     margin: 20px 0;
     text-decoration: none;
     color: #111;
+    transition: 0.2s;
+  }
+
+  .fullscreen-menu a:hover {
+    opacity: 0.6;
+  }
+
+  /* Gallery */
+  .gallery {
+    max-width: 1400px;
+    margin: 80px auto 60px; /* 80px сверху из-за header */
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .gallery img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 14px;
+    opacity: 0.6;
+  }
+
+  footer a {
+    color: #111;
+    text-decoration: underline;
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">Logo</div>
+  <div class="logo">Yuliya Komarovska</div>
   <div class="hamburger" id="hamburger">
     <div></div>
     <div></div>
@@ -83,31 +137,49 @@
   </div>
 </header>
 
-<nav class="fullscreen-menu" id="menu">
+<nav class="fullscreen-menu" id="fullscreenMenu">
   <a href="#">Home</a>
   <a href="#">Portfolio</a>
   <a href="#">Contact</a>
 </nav>
 
+<section class="gallery">
+  <img src="photo1.jpg" alt="Photo 1">
+  <img src="photo2.jpg" alt="Photo 2">
+  <img src="photo3.jpg" alt="Photo 3">
+  <img src="photo4.jpg" alt="Photo 4">
+  <img src="photo5.jpg" alt="Photo 5">
+  <img src="photo6.jpg" alt="Photo 6">
+  <img src="photo7.jpg" alt="Photo 7">
+  <img src="photo8.jpg" alt="Photo 8">
+  <img src="photo9.jpg" alt="Photo 9">
+  <img src="photo10.jpg" alt="Photo 10">
+</section>
+
+<footer>
+  © 2025 Yuliya Komarovska — 760 8155193 <br>
+  <a href="https://shorturl.at/DXZn7" target="_blank">Instagram</a>
+</footer>
+
 <script>
   const hamburger = document.getElementById('hamburger');
-  const menu = document.getElementById('menu');
+  const fullscreenMenu = document.getElementById('fullscreenMenu');
 
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
-    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    fullscreenMenu.style.display = fullscreenMenu.style.display === 'flex' ? 'none' : 'flex';
   });
 
-  menu.querySelectorAll('a').forEach(link => {
+  fullscreenMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      menu.style.display = 'none';
+      fullscreenMenu.style.display = 'none';
       hamburger.classList.remove('active');
     });
   });
 
   window.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !menu.contains(e.target)) {
-      menu.style.display = 'none';
+    if (!hamburger.contains(e.target) && !fullscreenMenu.contains(e.target)) {
+      fullscreenMenu.style.display = 'none';
       hamburger.classList.remove('active');
     }
   });
