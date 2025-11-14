@@ -10,14 +10,13 @@
         font-family: 'Inter', system-ui, sans-serif;
         background: #ffffff;
         color: #111;
-        scroll-behavior: smooth; /* Плавный скролл */
+        scroll-behavior: smooth;
     }
 
     /* Header */
     header {
         width: 100%;
         padding: 15px 20px;
-        box-sizing: border-box;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -43,7 +42,7 @@
     }
 
     .hamburger:hover {
-        transform: scale(1.2); /* hover эффект */
+        transform: scale(1.2);
     }
 
     .hamburger div {
@@ -53,7 +52,6 @@
         transition: 0.3s;
     }
 
-    /* Анимация крестика при открытом меню */
     .hamburger.active div:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
     }
@@ -119,11 +117,14 @@
     .hero-text h1 {
         font-size: 4rem;
         margin: 0;
+        animation: fadeInUp 1s ease forwards;
     }
 
     .hero-text p {
         font-size: 1.5rem;
         margin: 10px 0 20px 0;
+        animation: fadeInUp 1s 0.5s ease forwards;
+        opacity: 0;
     }
 
     .hero-text .btn {
@@ -134,10 +135,17 @@
         font-weight: 600;
         border-radius: 4px;
         transition: 0.3s;
+        animation: fadeInUp 1s 1s ease forwards;
+        opacity: 0;
     }
 
     .hero-text .btn:hover {
         opacity: 0.8;
+    }
+
+    @keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
     }
 
     /* Gallery */
@@ -155,11 +163,13 @@
         height: auto;
         object-fit: cover;
         border-radius: 6px;
-        transition: transform 0.3s;
+        transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
+        opacity: 0; /* для появления при скролле */
     }
 
     .gallery img:hover {
         transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
     /* Footer */
@@ -180,7 +190,6 @@
 
 <header>
     <div class="logo">Yuliya Komarovska</div>
-    <!-- Hamburger -->
     <div class="hamburger" id="hamburger">
         <div></div>
         <div></div>
@@ -188,7 +197,6 @@
     </div>
 </header>
 
-<!-- Fullscreen menu -->
 <nav class="fullscreen-menu" id="fullscreenMenu">
     <a href="#">Home</a>
     <a href="#gallery">Portfolio</a>
@@ -196,7 +204,6 @@
     <a href="#">Contact</a>
 </nav>
 
-<!-- Hero section -->
 <section class="hero">
     <div class="hero-text">
         <h1>Yuliya Komarovska</h1>
@@ -205,21 +212,19 @@
     </div>
 </section>
 
-<!-- Gallery -->
 <section class="gallery" id="gallery">
-    <img src="photo1.jpg" alt="Photo 1">
-    <img src="photo2.jpg" alt="Photo 2">
-    <img src="photo3.jpg" alt="Photo 3">
-    <img src="photo4.jpg" alt="Photo 4">
-    <img src="photo5.jpg" alt="Photo 5">
-    <img src="photo6.jpg" alt="Photo 6">
-    <img src="photo7.jpg" alt="Photo 7">
-    <img src="photo8.jpg" alt="Photo 8">
-    <img src="photo9.jpg" alt="Photo 9">
-    <img src="photo10.jpg" alt="Photo 10">
+    <img src="photo1.jpg" alt="Photo 1" class="fade">
+    <img src="photo2.jpg" alt="Photo 2" class="fade">
+    <img src="photo3.jpg" alt="Photo 3" class="fade">
+    <img src="photo4.jpg" alt="Photo 4" class="fade">
+    <img src="photo5.jpg" alt="Photo 5" class="fade">
+    <img src="photo6.jpg" alt="Photo 6" class="fade">
+    <img src="photo7.jpg" alt="Photo 7" class="fade">
+    <img src="photo8.jpg" alt="Photo 8" class="fade">
+    <img src="photo9.jpg" alt="Photo 9" class="fade">
+    <img src="photo10.jpg" alt="Photo 10" class="fade">
 </section>
 
-<!-- Footer -->
 <footer>
     © 2025 Yuliya Komarovska — 760 8155193 <br>
     <a href="https://shorturl.at/DXZn7" target="_blank">Instagram</a>
@@ -230,14 +235,14 @@
     const fullscreenMenu = document.getElementById('fullscreenMenu');
 
     hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active'); // крестик
+        hamburger.classList.toggle('active');
         fullscreenMenu.style.display = fullscreenMenu.style.display === 'flex' ? 'none' : 'flex';
     });
 
     fullscreenMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             fullscreenMenu.style.display = 'none';
-            hamburger.classList.remove('active'); // возвращаем гамбургер в исходное состояние
+            hamburger.classList.remove('active');
         });
     });
 
@@ -247,6 +252,22 @@
             hamburger.classList.remove('active');
         }
     });
+
+    // Появление картинок при скролле
+    const galleryImages = document.querySelectorAll('.gallery img');
+
+    const appearOnScroll = () => {
+        const triggerBottom = window.innerHeight * 0.85;
+        galleryImages.forEach(img => {
+            const imgTop = img.getBoundingClientRect().top;
+            if(imgTop < triggerBottom) {
+                img.style.opacity = 1;
+            }
+        });
+    }
+
+    window.addEventListener('scroll', appearOnScroll);
+    appearOnScroll(); // для картинок в видимой области при загрузке
 </script>
 
 </body>
