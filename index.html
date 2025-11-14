@@ -31,16 +31,17 @@
         letter-spacing: 0.5px;
     }
 
-    /* Hamburger */
-    .hamburger {
-        display: flex;
-        flex-direction: column;
-        cursor: pointer;
-        gap: 5px;
-        z-index: 25;
-        transition: transform 0.3s;
-        margin-right: 5px; /* <- гамбургер сдвинут влево на 5px */
-    }
+/* Hamburger */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    z-index: 25;
+    transition: transform 0.3s;
+    position: relative;
+    right: 5px; /* <-- это точно двинет его влево на 5px */
+}
 
     .hamburger:hover {
         transform: scale(1.2);
