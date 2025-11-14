@@ -1,102 +1,190 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Фотограф — Yuliya Komarovska</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Фотограф — Yuliya Komarovska</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Inter', system-ui, sans-serif;
+        background: #ffffff;
+        color: #111;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Inter', system-ui, sans-serif;
-            background: #ffffff;
-            color: #111;
+    /* Шапка */
+    header {
+        width: 100%;
+        padding: 15px 20px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        border-bottom: 1px solid #eee;
+    }
+
+    .logo {
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    /* Основное меню (для больших экранов) */
+    .menu {
+        display: flex;
+        gap: 20px;
+    }
+
+    .menu a {
+        text-decoration: none;
+        color: #111;
+        font-size: 15px;
+    }
+
+    .menu a:hover {
+        opacity: 0.7;
+    }
+
+    /* Гамбургер */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+    }
+
+    .hamburger div {
+        width: 25px;
+        height: 3px;
+        background-color: #111;
+    }
+
+    /* Скрытое мобильное меню */
+    .mobile-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #fff;
+        width: 200px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        flex-direction: column;
+        padding: 10px 0;
+        z-index: 10;
+    }
+
+    .mobile-menu a {
+        padding: 10px 20px;
+        text-decoration: none;
+        color: #111;
+        font-weight: 500;
+    }
+
+    .mobile-menu a:hover {
+        background: #f0f0f0;
+    }
+
+    /* Галерея */
+    .gallery {
+        max-width: 1400px;
+        margin: 60px auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .gallery img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 40px 20px;
+        font-size: 14px;
+        opacity: 0.6;
+    }
+
+    footer a {
+        color: #111;
+        text-decoration: underline;
+    }
+
+    /* Адаптив */
+    @media (max-width: 768px) {
+        .menu {
+            display: none;
         }
-
-        /* Навигация */
-        header {
-            width: 100%;
-            padding: 25px 40px;
-            box-sizing: border-box;
+        .hamburger {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
-
-        .logo {
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        nav a {
-            margin-left: 25px;
-            text-decoration: none;
-            color: #111;
-            font-size: 15px;
-            opacity: 0.8;
-        }
-        nav a:hover {
-            opacity: 1;
-        }
-
-        /* Галерея */
-        .gallery {
-            max-width: 1400px;
-            margin: 60px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .gallery img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 14px;
-            opacity: 0.6;
-        }
-
-        footer a {
-            color: #111;
-            text-decoration: underline;
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
-    <!-- Шапка -->
-    <header>
-        <div class="logo">Yuliya Komarovska — Photographer</div>
-        <nav>
-            <a href="#">Портфолио</a>
-            <a href="#">Обо мне</a>
-            <a href="#">Услуги</a>
-            <a href="#">Контакты</a>
-        </nav>
-    </header>
 
-    <!-- Галерея -->
-    <section class="gallery">
-        <img src="hero.jpg" alt="Главное фото" /> <!-- Теперь в маленьком слоте -->
-        <img src="photo1.jpg" alt="Фото 1" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-    </section>
+<header>
+    <div class="logo">Yuliya Komarovska</div>
 
-    <!-- Подвал -->
-    <footer>
-        © 2025 Yuliya Komarovska — 760 8155193 <br>
-        <a href="https://shorturl.at/DXZn7" target="_blank">Instagram</a>
-    </footer>
+    <!-- Основное меню (большие экраны) -->
+    <nav class="menu">
+        <a href="#">Профиль</a>
+        <a href="#">Цены</a>
+        <a href="#">Портфолио</a>
+        <a href="#">Услуги</a>
+        <a href="#">Контакты</a>
+    </nav>
+
+    <!-- Гамбургер для мобильных -->
+    <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <!-- Мобильное меню -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="#">Портфолио</a>
+        <a href="#">Услуги</a>
+        <a href="#">Контакты</a>
+    </nav>
+</header>
+
+<!-- Галерея -->
+<section class="gallery">
+    <img src="hero.jpg" alt="Главное фото" />
+    <img src="photo1.jpg" alt="Фото 1" />
+    <img src="" alt="" />
+    <img src="" alt="" />
+    <img src="" alt="" />
+</section>
+
+<!-- Подвал -->
+<footer>
+    © 2025 Yuliya Komarovska — 760 8155193 <br>
+    <a href="https://shorturl.at/DXZn7" target="_blank">Instagram</a>
+</footer>
+
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+        mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // Закрытие меню при клике вне
+    window.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+            mobileMenu.style.display = 'none';
+        }
+    });
+</script>
+
 </body>
 </html>
