@@ -30,7 +30,7 @@
         letter-spacing: 0.5px;
     }
 
-    /* Основное меню (для больших экранов) */
+    /* Основное меню */
     .menu {
         display: flex;
         gap: 20px;
@@ -46,12 +46,13 @@
         opacity: 0.7;
     }
 
-    /* Гамбургер */
+    /* Гамбургер (всегда виден) */
     .hamburger {
-        display: none;
+        display: flex;
         flex-direction: column;
         cursor: pointer;
         gap: 5px;
+        margin-left: 20px;
     }
 
     .hamburger div {
@@ -60,7 +61,7 @@
         background-color: #111;
     }
 
-    /* Скрытое мобильное меню */
+    /* Мобильное/плавающее меню */
     .mobile-menu {
         display: none;
         position: absolute;
@@ -115,15 +116,6 @@
         text-decoration: underline;
     }
 
-    /* Адаптив */
-    @media (max-width: 768px) {
-        .menu {
-            display: none;
-        }
-        .hamburger {
-            display: flex;
-        }
-    }
 </style>
 </head>
 <body>
@@ -131,7 +123,7 @@
 <header>
     <div class="logo">Yuliya Komarovska</div>
 
-    <!-- Основное меню (большие экраны) -->
+    <!-- Меню для ПК -->
     <nav class="menu">
         <a href="#">Профиль</a>
         <a href="#">Цены</a>
@@ -140,7 +132,7 @@
         <a href="#">Контакты</a>
     </nav>
 
-    <!-- Гамбургер для мобильных -->
+    <!-- Гамбургер -->
     <div class="hamburger" id="hamburger">
         <div></div>
         <div></div>
