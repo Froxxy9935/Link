@@ -1,89 +1,118 @@
-Вот простой пример калькулятора на HTML, CSS и JavaScript — всё в одном файле.
-Его можно скопировать и вставить в любой .html файл, затем открыть в браузере.
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Калькулятор</title>
-  <style>
-    body {
-      background: #1e1e1e;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотограф — Имя Мамы</title>
 
-    .calculator {
-      background: #2c2c2c;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #000;
-      width: 260px;
-    }
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #ffffff;
+            color: #111;
+        }
 
-    .display {
-      background: #111;
-      padding: 15px;
-      border-radius: 5px;
-      text-align: right;
-      font-size: 2em;
-      margin-bottom: 15px;
-      overflow-x: auto;
-    }
+        /* Навигация */
+        header {
+            width: 100%;
+            padding: 25px 40px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
 
-    button {
-      padding: 20px;
-      font-size: 1.2em;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      background: #444;
-      color: #fff;
-      transition: 0.2s;
-    }
+        nav a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: #111;
+            font-size: 15px;
+            opacity: 0.8;
+        }
+        nav a:hover {
+            opacity: 1;
+        }
 
-    button:hover {
-      background: #666;
-    }
+        /* Hero фото */
+        .hero {
+            width: 100%;
+            height: 90vh;
+            overflow: hidden;
+            position: relative;
+        }
 
-    .equal {
-      background: #0078ff;
-    }
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    .equal:hover {
-      background: #005fcc;
-    }
+        /* Галерея */
+        .gallery {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
 
-    .clear {
-      background: #ff4b4b;
-    }
+        .gallery img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
 
-    .clear:hover {
-      background: #d63b3b;
-    }
-  </style>
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+    </style>
 </head>
 <body>
-  <div class="calculator">
-    <div class="display" id="display">0</div>
-    <div class="buttons">
-      <button class="clear" onclick="clearDisplay()">C</button>
-      <button onclick="appendOperator('/')">÷</button>
-      <button onclick="appendOperator('*')">×</button>
-      <button onclick="deleteLast()">⌫</button>
 
-      <button onclick="appendNumber('7')">7</button>
-      <button onclick="appendNumber('8')">8</button>
-      <button onclick="appendNumber('9')">9</button>
-      <button onclick="appendOperator('-')
+    <!-- Шапка -->
+    <header>
+        <div class="logo">Имя Мамы — Photographer</div>
+        <nav>
+            <a href="#">Портфолио</a>
+            <a href="#">Обо мне</a>
+            <a href="#">Услуги</a>
+            <a href="#">Контакты</a>
+        </nav>
+    </header>
+
+    <!-- Обложка -->
+    <section class="hero">
+        <img src="hero.jpg" alt="Главное фото">
+    </section>
+
+    <!-- Галерея -->
+    <section class="gallery">
+        <img src="photo1.jpg" alt="">
+        <img src="photo2.jpg" alt="">
+        <img src="photo3.jpg" alt="">
+        <img src="photo4.jpg" alt="">
+        <img src="photo5.jpg" alt="">
+        <img src="photo6.jpg" alt="">
+    </section>
+
+    <!-- Подвал -->
+    <footer>
+        © 2025 Имя Мамы. Все права защищены.
+    </footer>
+
+</body>
+</html>
