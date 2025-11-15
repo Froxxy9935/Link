@@ -13,7 +13,6 @@
         scroll-behavior: smooth;
     }
 
-    /* Header */
     header {
         width: 100%;
         padding: 15px 20px;
@@ -34,7 +33,6 @@
         letter-spacing: 0.5px;
     }
 
-    /* Hamburger */
     .hamburger {
         width: 30px;
         height: 24px;
@@ -64,7 +62,6 @@
         transform: rotate(-45deg) translate(0, -8px);
     }
 
-    /* Fullscreen menu */
     .fullscreen-menu {
         display: none;
         position: fixed;
@@ -92,7 +89,6 @@
         opacity: 0.6;
     }
 
-    /* Hero section */
     .hero {
         height: 100vh;
         background: url('photo1.jpg') center/cover no-repeat;
@@ -118,18 +114,10 @@
 
     .hero-text h1 {
         font-size: 4rem;
-        margin: 0;
+        margin: 0 0 20px 0;
         animation: fadeInUp 1s ease forwards;
     }
 
-    .hero-text p {
-        font-size: 1.5rem;
-        margin: 10px 0 20px 0;
-        animation: fadeInUp 1s 0.5s ease forwards;
-        opacity: 0;
-    }
-
-    /* Hero buttons wrapper */
     .hero-buttons-wrapper {
         position: relative;
         display: flex;
@@ -148,51 +136,25 @@
         border-radius: 4px;
         transition: 0.3s, transform 0.3s;
         opacity: 0;
-    }
-
-    /* Центральная кнопка */
-    .btn-center { 
-        animation: fadeInUp 0.8s ease forwards;
-        animation-delay: 1s;
-    }
-
-    /* Боковые кнопки */
-    .btn-left { 
-        animation: fadeInLeft 0.8s ease forwards;
-        animation-delay: 1.8s;
-    }
-
-    .btn-right { 
-        animation: fadeInRight 0.8s ease forwards;
-        animation-delay: 1.8s;
+        animation: fadeIn 0.8s forwards;
     }
 
     /* Анимации */
-    @keyframes fadeInUp {
+    @keyframes fadeIn {
         0% { opacity: 0; transform: translateY(20px); }
         100% { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes fadeInLeft {
-        0% { opacity: 0; transform: translateX(50px); }
-        100% { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes fadeInRight {
-        0% { opacity: 0; transform: translateX(-50px); }
-        100% { opacity: 1; transform: translateX(0); }
-    }
+    .btn-center { animation-delay: 0s; }
+    .btn-left { animation-delay: 0s; }
+    .btn-right { animation-delay: 0s; }
 
     @media (max-width: 768px) {
         .hero-buttons-wrapper {
             flex-direction: column;
         }
-        .hero-buttons-wrapper .btn {
-            transform: none !important;
-        }
     }
 
-    /* Gallery */
     .gallery {
         max-width: 1200px;
         margin: 60px auto;
@@ -216,7 +178,6 @@
         box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
-    /* Pricing */
     #pricing {
         padding: 80px 20px;
         text-align: center;
@@ -253,7 +214,6 @@
         font-size: 1.1rem;
     }
 
-    /* Contact */
     #contact {
         padding: 80px 20px;
         text-align: center;
@@ -301,14 +261,12 @@
         background: #333;
     }
 
-    /* Footer */
     footer {
         text-align: center;
         padding: 40px 20px;
         font-size: 14px;
         opacity: 0.6;
     }
-
     footer a {
         color: #111;
         text-decoration: underline;
@@ -336,59 +294,34 @@
 <section class="hero">
     <div class="hero-text">
         <h1>Yuliya Komarovska</h1>
-        <p>Professional Photographer</p>
         <div class="hero-buttons-wrapper">
-            <a href="#gallery" class="btn btn-center">View Portfolio</a>
             <a href="#pricing" class="btn btn-left">Pricing</a>
+            <a href="#gallery" class="btn btn-center">Portfolio</a>
             <a href="#contact" class="btn btn-right">Contact</a>
         </div>
     </div>
 </section>
 
 <section class="gallery" id="gallery">
-    <img src="photo0.jpg" alt="Photo 1" class="fade">
-    <img src="photo2.jpg" alt="Photo 2" class="fade">
-    <img src="photo3.jpg" alt="Photo 3" class="fade">
-    <img src="photo4.jpg" alt="Photo 4" class="fade">
-    <img src="photo5.jpg" alt="Photo 5" class="fade">
-    <img src="photo6.jpg" alt="Photo 6" class="fade">
-    <img src="photo7.jpg" alt="Photo 7" class="fade">
-    <img src="photo8.jpg" alt="Photo 8" class="fade">
-    <img src="photo9.jpg" alt="Photo 9" class="fade">
-    <img src="photo10.jpg" alt="Photo 10" class="fade">
-    <img src="photo11.jpg" alt="Photo 11" class="fade">
-    <img src="photo12.jpg" alt="Photo 12" class="fade">
-    <img src="photo13.jpg" alt="Photo 13" class="fade">
-    <img src="photo14.jpg" alt="Photo 14" class="fade">
-    <img src="photo15.jpg" alt="Photo 15" class="fade">
-    <img src="photo16.jpg" alt="Photo 16" class="fade">
-    <img src="photo17.jpg" alt="Photo 17" class="fade">
-    <img src="photo18.jpg" alt="Photo 18" class="fade">
+    <img src="photo0.jpg" alt="Photo 1">
+    <img src="photo2.jpg" alt="Photo 2">
+    <img src="photo3.jpg" alt="Photo 3">
 </section>
 
-<!-- Pricing Section -->
 <section id="pricing">
     <h2>Pricing</h2>
     <div class="pricing">
         <div class="pricing-item">
             <h3>Basic Session</h3>
             <p>$150</p>
-            <p>1 hour photoshoot, 10 edited photos</p>
         </div>
         <div class="pricing-item">
             <h3>Full Session</h3>
             <p>$300</p>
-            <p>2 hours photoshoot, 25 edited photos</p>
-        </div>
-        <div class="pricing-item">
-            <h3>Wedding Package</h3>
-            <p>$1000</p>
-            <p>Full day coverage, 100+ edited photos</p>
         </div>
     </div>
 </section>
 
-<!-- Contact Section -->
 <section id="contact">
     <h2>Contact</h2>
     <form class="contact-form" action="mailto:youremail@example.com" method="post">
@@ -428,22 +361,6 @@
             hamburger.classList.remove('active');
         }
     });
-
-    // Появление картинок при скролле
-    const galleryImages = document.querySelectorAll('.gallery img');
-
-    const appearOnScroll = () => {
-        const triggerBottom = window.innerHeight * 0.85;
-        galleryImages.forEach(img => {
-            const imgTop = img.getBoundingClientRect().top;
-            if(imgTop < triggerBottom) {
-                img.style.opacity = 1;
-            }
-        });
-    }
-
-    window.addEventListener('scroll', appearOnScroll);
-    appearOnScroll();
 </script>
 
 </body>
