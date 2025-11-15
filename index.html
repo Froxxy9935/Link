@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Photographer — Yuliya Komarovska</title>
 <style>
+    /* ============================
+       Общие стили страницы
+       ============================ */
     body {
         margin: 0;
         font-family: 'Inter', system-ui, sans-serif;
@@ -13,7 +16,9 @@
         scroll-behavior: smooth;
     }
 
-    /* Header */
+    /* ============================
+       Header / Хедер
+       ============================ */
     header {
         width: 100%;
         padding: 15px 20px;
@@ -34,7 +39,9 @@
         letter-spacing: 0.5px;
     }
 
-    /* Hamburger */
+    /* ============================
+       Hamburger / Меню-бургер
+       ============================ */
     .hamburger {
         width: 30px;
         height: 24px;
@@ -64,7 +71,9 @@
         transform: rotate(-45deg) translate(0, -8px);
     }
 
-    /* Fullscreen menu */
+    /* ============================
+       Fullscreen menu / Полноэкранное меню
+       ============================ */
     .fullscreen-menu {
         display: none;
         position: fixed;
@@ -92,7 +101,9 @@
         opacity: 0.6;
     }
 
-    /* Hero section */
+    /* ============================
+       Hero section / Главная секция
+       ============================ */
     .hero {
         height: 100vh;
         background: url('photo1.jpg') center/cover no-repeat;
@@ -129,7 +140,7 @@
         opacity: 0;
     }
 
-    /* Hero buttons wrapper */
+    /* Hero buttons wrapper / Кнопки на главной */
     .hero-buttons-wrapper {
         position: relative;
         width: auto;
@@ -179,6 +190,9 @@
         transform: scale(1.05);
     }
 
+    /* ============================
+       Адаптив для мобильных
+       ============================ */
     @media (max-width: 768px) {
         .hero-text h1 {
             font-size: 3.2rem;
@@ -197,6 +211,9 @@
         }
     }
 
+    /* ============================
+       Анимации
+       ============================ */
     @keyframes fadeInUp {
         0% { opacity: 0; transform: translateY(20px); }
         100% { opacity: 1; transform: translateY(0); }
@@ -212,7 +229,9 @@
         100% { opacity: 1; transform: translateX(0); }
     }
 
-    /* Gallery */
+    /* ============================
+       Gallery / Галерея
+       ============================ */
     .gallery {
         max-width: 1200px;
         margin: 60px auto;
@@ -236,7 +255,9 @@
         box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
-    /* Pricing */
+    /* ============================
+       Pricing / Цены
+       ============================ */
     #pricing {
         padding: 80px 20px;
         text-align: center;
@@ -273,7 +294,9 @@
         font-size: 1.1rem;
     }
 
-    /* Contact */
+    /* ============================
+       Contact / Контакты
+       ============================ */
     #contact {
         padding: 80px 20px;
         text-align: center;
@@ -321,7 +344,9 @@
         background: #333;
     }
 
-    /* Footer */
+    /* ============================
+       Footer / Футер
+       ============================ */
     footer {
         text-align: center;
         padding: 40px 20px;
@@ -337,6 +362,9 @@
 </head>
 <body>
 
+<!-- ============================
+     Header / Хедер
+     ============================ -->
 <header>
     <div class="logo">Yuliya Komarovska</div>
     <div class="hamburger" id="hamburger">
@@ -346,6 +374,9 @@
     </div>
 </header>
 
+<!-- ============================
+     Fullscreen menu / Полноэкранное меню
+     ============================ -->
 <nav class="fullscreen-menu" id="fullscreenMenu">
     <a href="#">Home</a>
     <a href="#gallery">Portfolio</a>
@@ -353,6 +384,9 @@
     <a href="#contact">Contact</a>
 </nav>
 
+<!-- ============================
+     Hero Section / Главная секция
+     ============================ -->
 <section class="hero">
     <div class="hero-text">
         <h1>Yuliya Komarovska</h1>
@@ -365,6 +399,9 @@
     </div>
 </section>
 
+<!-- ============================
+     Gallery / Галерея
+     ============================ -->
 <section class="gallery" id="gallery">
     <img src="photo0.jpg" alt="Photo 1" class="fade">
     <img src="photo2.jpg" alt="Photo 2" class="fade">
@@ -377,6 +414,9 @@
     <img src="photo9.jpg" alt="Photo 9" class="fade">
 </section>
 
+<!-- ============================
+     Pricing / Цены
+     ============================ -->
 <section id="pricing">
     <h2>Pricing</h2>
     <div class="pricing">
@@ -398,6 +438,9 @@
     </div>
 </section>
 
+<!-- ============================
+     Contact / Контакты
+     ============================ -->
 <section id="contact">
     <h2>Contact</h2>
     <form class="contact-form" action="mailto:youremail@example.com" method="post">
@@ -410,12 +453,19 @@
     </form>
 </section>
 
+<!-- ============================
+     Footer / Футер
+     ============================ -->
 <footer>
     © 2025 Yuliya Komarovska — 760 815 5193 <br>
     <a href="https://shorturl.at/DXZn7" target="_blank">Instagram</a>
 </footer>
 
+<!-- ============================
+     Scripts / Скрипты
+     ============================ -->
 <script>
+    // Hamburger toggle / Открытие-закрытие меню
     const hamburger = document.getElementById('hamburger');
     const fullscreenMenu = document.getElementById('fullscreenMenu');
 
@@ -424,6 +474,7 @@
         fullscreenMenu.style.display = fullscreenMenu.style.display === 'flex' ? 'none' : 'flex';
     });
 
+    // Закрытие меню при клике на ссылку
     fullscreenMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             fullscreenMenu.style.display = 'none';
@@ -431,6 +482,7 @@
         });
     });
 
+    // Закрытие меню при клике вне меню
     window.addEventListener('click', (e) => {
         if (!hamburger.contains(e.target) && !fullscreenMenu.contains(e.target)) {
             fullscreenMenu.style.display = 'none';
