@@ -132,11 +132,11 @@
     /* Hero buttons wrapper */
     .hero-buttons-wrapper {
         position: relative;
-        width: 100%;
-        margin-top: 30px;
         display: flex;
         justify-content: center;
         align-items: center;
+        gap: 20px;
+        margin-top: 20px;
     }
 
     .hero-buttons-wrapper .btn {
@@ -148,62 +148,48 @@
         border-radius: 4px;
         transition: 0.3s, transform 0.3s;
         opacity: 0;
-        position: absolute;
     }
 
+    /* Центральная кнопка */
     .btn-center { 
-        animation: fadeInUp 1s ease forwards;
+        animation: fadeInUp 0.8s ease forwards;
         animation-delay: 1s;
-        position: relative;
-        opacity: 0;
     }
 
+    /* Боковые кнопки */
     .btn-left { 
-        animation: fadeInLeft 1s ease forwards;
-        animation-delay: 0.5s;
-        left: -150px;
-        top: -20px;
+        animation: fadeInLeft 0.8s ease forwards;
+        animation-delay: 1.8s;
     }
 
     .btn-right { 
-        animation: fadeInRight 1s ease forwards;
-        animation-delay: 1.5s;
-        right: -150px;
-        top: -20px;
+        animation: fadeInRight 0.8s ease forwards;
+        animation-delay: 1.8s;
     }
 
-    .hero-buttons-wrapper .btn:hover {
-        opacity: 0.8;
-        transform: scale(1.05);
-    }
-
-    @media (max-width: 1024px) {
-        .hero-buttons-wrapper .btn-left,
-        .hero-buttons-wrapper .btn-right {
-            position: relative;
-            left: 0;
-            right: 0;
-            top: 0;
-            margin-bottom: 15px;
-        }
-        .hero-buttons-wrapper {
-            flex-direction: column;
-        }
-    }
-
+    /* Анимации */
     @keyframes fadeInUp {
         0% { opacity: 0; transform: translateY(20px); }
         100% { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeInLeft {
-        0% { opacity: 0; transform: translateX(-50px); }
+        0% { opacity: 0; transform: translateX(50px); }
         100% { opacity: 1; transform: translateX(0); }
     }
 
     @keyframes fadeInRight {
-        0% { opacity: 0; transform: translateX(50px); }
+        0% { opacity: 0; transform: translateX(-50px); }
         100% { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (max-width: 768px) {
+        .hero-buttons-wrapper {
+            flex-direction: column;
+        }
+        .hero-buttons-wrapper .btn {
+            transform: none !important;
+        }
     }
 
     /* Gallery */
@@ -352,8 +338,8 @@
         <h1>Yuliya Komarovska</h1>
         <p>Professional Photographer</p>
         <div class="hero-buttons-wrapper">
-            <a href="#pricing" class="btn btn-left">Pricing</a>
             <a href="#gallery" class="btn btn-center">View Portfolio</a>
+            <a href="#pricing" class="btn btn-left">Pricing</a>
             <a href="#contact" class="btn btn-right">Contact</a>
         </div>
     </div>
@@ -380,6 +366,7 @@
     <img src="photo18.jpg" alt="Photo 18" class="fade">
 </section>
 
+<!-- Pricing Section -->
 <section id="pricing">
     <h2>Pricing</h2>
     <div class="pricing">
@@ -401,6 +388,7 @@
     </div>
 </section>
 
+<!-- Contact Section -->
 <section id="contact">
     <h2>Contact</h2>
     <form class="contact-form" action="mailto:youremail@example.com" method="post">
