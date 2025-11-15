@@ -117,13 +117,13 @@
     }
 
     .hero-text h1 {
-        font-size: 5.5rem;
+        font-size: 4rem;
         margin: 0;
         animation: fadeInUp 1s ease forwards;
     }
 
     .hero-text p {
-        font-size: 2.3rem;
+        font-size: 2rem;
         margin: 10px 0 20px 0;
         animation: fadeInUp 1s 0.5s ease forwards;
         opacity: 0;
@@ -137,45 +137,63 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 15px; /* расстояние между кнопками */
+        gap: 15px; /* минимальное расстояние между кнопками */
     }
 
     .hero-buttons-wrapper .btn {
-        padding: 20px 50px; /* больше кнопки */
+        padding: 20px 50px; /* увеличенные кнопки */
         background: #111;
         color: #fff;
         text-decoration: none;
         font-weight: 600;
-        font-size: 1.4rem; /* увеличенный текст кнопок */
+        font-size: 1.4rem;
         border-radius: 8px;
         opacity: 0;
         position: relative;
         transition: 0.3s, transform 0.3s;
     }
 
-    .btn-center {
+    .btn-center { 
         animation: fadeInUp 1s ease forwards;
         animation-delay: 1s;
+        position: relative;
+        opacity: 0;
     }
 
-    .btn-left {
+    .btn-left { 
         animation: fadeInLeft 1s ease forwards;
         animation-delay: 1s;
+        position: relative;
+        left: 0;
     }
 
-    .btn-right {
+    .btn-right { 
         animation: fadeInRight 1s ease forwards;
         animation-delay: 1s;
+        position: relative;
+        right: 0;
     }
 
     .hero-buttons-wrapper .btn:hover {
-        transform: scale(1.08);
-        opacity: 0.85;
+        opacity: 0.8;
+        transform: scale(1.05);
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 768px) {
+        .hero-text h1 {
+            font-size: 3.2rem;
+        }
+        .hero-text p {
+            font-size: 1.6rem;
+        }
         .hero-buttons-wrapper {
-            flex-direction: column;
+            flex-direction: column; /* вертикально на телефоне */
+            gap: 15px;
+        }
+        .hero-buttons-wrapper .btn {
+            width: 80%;
+            padding: 18px 0;
+            font-size: 1.2rem;
         }
     }
 
@@ -357,15 +375,6 @@
     <img src="photo7.jpg" alt="Photo 7" class="fade">
     <img src="photo8.jpg" alt="Photo 8" class="fade">
     <img src="photo9.jpg" alt="Photo 9" class="fade">
-    <img src="photo10.jpg" alt="Photo 10" class="fade">
-    <img src="photo11.jpg" alt="Photo 11" class="fade">
-    <img src="photo12.jpg" alt="Photo 12" class="fade">
-    <img src="photo13.jpg" alt="Photo 13" class="fade">
-    <img src="photo14.jpg" alt="Photo 14" class="fade">
-    <img src="photo15.jpg" alt="Photo 15" class="fade">
-    <img src="photo16.jpg" alt="Photo 16" class="fade">
-    <img src="photo17.jpg" alt="Photo 17" class="fade">
-    <img src="photo18.jpg" alt="Photo 18" class="fade">
 </section>
 
 <section id="pricing">
