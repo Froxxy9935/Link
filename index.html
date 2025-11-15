@@ -297,42 +297,52 @@
     /* ============================
        Contact / Контакты
        ============================ */
-   <section id="contact">
-    <h2>Contact</h2>
-    <div class="pricing">  <!-- одинаковый стиль с ценами -->
-
-        <!-- Phone -->
-        <div class="pricing-item">
-            <h3>Phone</h3>
-            <p>+1 760 815 5193</p>
-        </div>
-
-        <!-- Email -->
-        <div class="pricing-item">
-            <h3>Email</h3>
-            <p>yourmomemail@example.com</p>
-        </div>
-
-        <!-- Instagram -->
-        <div class="pricing-item">
-            <h3>Instagram</h3>
-            <p>@yourmom</p>
-        </div>
-
-        <!-- Example message (fake-form style) -->
-        <div class="pricing-item">
-            <h3>Example Message</h3>
-            <p><strong>Name:</strong> Your Name</p>
-            <p><strong>Email:</strong> your@email.com</p>
-            <p><strong>Message:</strong><br>
-            Hi Yuliya! I would like to book a photoshoot…</p>
-        </div>
-
-    </div>
-</section>
-
-
-
+    #contact {
+        padding: 80px 20px;
+        text-align: center;
+    }
+    #contact h2 {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-width: 600px;
+        margin: auto;
+    }
+    .form-row {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    .contact-form input,
+    .contact-form textarea {
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        flex: 1 1 45%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .contact-form textarea {
+        flex: 1 1 100%;
+    }
+    .contact-form button {
+        background: #111;
+        color: #fff;
+        border: none;
+        padding: 15px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+    .contact-form button:hover {
+        background: #333;
+    }
 
     /* ============================
        Footer / Футер
