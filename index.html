@@ -20,9 +20,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        position: relative;
+        position: fixed;
+        top: 0;
+        left: 0;
         border-bottom: 1px solid #eee;
-        z-index: 20;
+        z-index: 100;
+        background: #fff;
     }
 
     .logo {
@@ -33,29 +36,31 @@
 
     /* Hamburger */
     .hamburger {
+        width: 30px;
+        height: 24px;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         cursor: pointer;
-        gap: 5px;
-        z-index: 25;
-        transition: transform 0.3s;
     }
 
     .hamburger div {
-        width: 25px;
         height: 3px;
         background-color: #111;
-        transition: 0.3s;
+        border-radius: 2px;
+        transition: all 0.3s ease;
     }
 
     .hamburger.active div:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
+        transform: rotate(45deg) translate(0, 8px);
     }
+
     .hamburger.active div:nth-child(2) {
         opacity: 0;
     }
+
     .hamburger.active div:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
+        transform: rotate(-45deg) translate(0, -8px);
     }
 
     /* Fullscreen menu */
@@ -67,7 +72,7 @@
         width: 100%;
         height: 100%;
         background: #fff;
-        z-index: 100;
+        z-index: 90;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -160,7 +165,7 @@
         object-fit: cover;
         border-radius: 6px;
         transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
-        opacity: 0;
+        opacity: 0; /* для появления при скролле */
     }
 
     .gallery img:hover {
@@ -209,11 +214,9 @@
 </section>
 
 <section class="gallery" id="gallery">
-    <img src="photo1.jpg" alt="Photo 1">
-    <img src="photo2.jpg" alt="Photo 2">
-    <img src="photo3.jpg" alt="Photo 3">
-    <img src="photo4.jpg" alt="Photo 4">
-    <img src="photo5.jpg" alt="Photo 5">
+    <img src="photo1.jpg" alt="Photo 1" class="fade">
+    <img src="photo2.jpg" alt="Photo 2" class="fade">
+    <img src="photo3.jpg" alt="Photo 3" class="fade">
 </section>
 
 <footer>
@@ -222,43 +225,43 @@
 </footer>
 
 <script>
-const hamburger = document.getElementById('hamburger');
-const fullscreenMenu = document.getElementById('fullscreenMenu');
+    const hamburger = document.getElementById('hamburger');
+    const fullscreenMenu = document.getElementById('fullscreenMenu');
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    fullscreenMenu.style.display = fullscreenMenu.style.display === 'flex' ? 'none' : 'flex';
-});
-
-fullscreenMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        fullscreenMenu.style.display = 'none';
-        hamburger.classList.remove('active');
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        fullscreenMenu.style.display = fullscreenMenu.style.display === 'flex' ? 'none' : 'flex';
     });
-});
 
-window.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !fullscreenMenu.contains(e.target)) {
-        fullscreenMenu.style.display = 'none';
-        hamburger.classList.remove('active');
-    }
-});
+    fullscreenMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            fullscreenMenu.style.display = 'none';
+            hamburger.classList.remove('active');
+        });
+    });
 
-// Появление картинок при скролле
-const galleryImages = document.querySelectorAll('.gallery img');
-
-const appearOnScroll = () => {
-    const triggerBottom = window.innerHeight * 0.85;
-    galleryImages.forEach(img => {
-        const imgTop = img.getBoundingClientRect().top;
-        if(imgTop < triggerBottom) {
-            img.style.opacity = 1;
+    window.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !fullscreenMenu.contains(e.target)) {
+            fullscreenMenu.style.display = 'none';
+            hamburger.classList.remove('active');
         }
     });
-}
 
-window.addEventListener('scroll', appearOnScroll);
-appearOnScroll();
+    // Появление картинок при скролле
+    const galleryImages = document.querySelectorAll('.gallery img');
+
+    const appearOnScroll = () => {
+        const triggerBottom = window.innerHeight * 0.85;
+        galleryImages.forEach(img => {
+            const imgTop = img.getBoundingClientRect().top;
+            if(imgTop < triggerBottom) {
+                img.style.opacity = 1;
+            }
+        });
+    }
+
+    window.addEventListener('scroll', appearOnScroll);
+    appearOnScroll(); // для картинок в видимой области при загрузке
 </script>
 
 </body>
