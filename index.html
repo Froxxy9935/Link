@@ -20,9 +20,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        position: relative;
+        position: fixed;
+        top: 0;
+        left: 0;
         border-bottom: 1px solid #eee;
-        z-index: 20;
+        z-index: 100;
+        background: #fff;
     }
 
     .logo {
@@ -31,27 +34,25 @@
         letter-spacing: 0.5px;
     }
 
-/* Hamburger */
-.hamburger {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 5px;
-    z-index: 25;
-    transition: transform 0.3s;
-    position: relative;
-    left: -30px; /* <-- это точно двинет его влево на 5px */
-}
-
-    .hamburger:hover {
-        transform: scale(1.2);
+    /* Hamburger */
+    .hamburger {
+        width: 30px;
+        height: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: transform 0.3s;
+        position: relative;
+        left: -5px; /* сдвигаем немного влево */
+        z-index: 101;
     }
 
     .hamburger div {
-        width: 25px;
         height: 3px;
-        background-color: #111;
-        transition: 0.3s;
+        background: #111;
+        border-radius: 2px;
+        transition: all 0.3s ease;
     }
 
     .hamburger.active div:nth-child(1) {
@@ -102,6 +103,7 @@
         text-align: center;
         color: white;
         position: relative;
+        margin-top: 60px; /* чтобы контент не перекрывался фиксированным хедером */
     }
 
     .hero::after {
@@ -166,7 +168,7 @@
         object-fit: cover;
         border-radius: 6px;
         transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
-        opacity: 0; /* для появления при скролле */
+        opacity: 0;
     }
 
     .gallery img:hover {
@@ -269,7 +271,7 @@
     }
 
     window.addEventListener('scroll', appearOnScroll);
-    appearOnScroll(); // для картинок в видимой области при загрузке
+    appearOnScroll();
 </script>
 
 </body>
