@@ -1,298 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Photographer — Yuliya Komarovska</title>
-<style>
-    body {
-        margin: 0;
-        font-family: 'Inter', system-ui, sans-serif;
-        background: #ffffff;
-        color: #111;
-        scroll-behavior: smooth;
-    }
-
-    /* Header */
-    header {
-        width: 100%;
-        padding: 15px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        border-bottom: 1px solid #eee;
-        z-index: 100;
-        background: #fff;
-    }
-
-    .logo {
-        font-size: 20px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-    }
-
-    /* Hamburger */
-    .hamburger {
-        width: 30px;
-        height: 24px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        cursor: pointer;
-        margin-right: 30px; /* отступ от правого края */
-    }
-
-    .hamburger div {
-        height: 3px;
-        background-color: #111;
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
-
-    .hamburger.active div:nth-child(1) {
-        transform: rotate(45deg) translate(0, 8px);
-    }
-
-    .hamburger.active div:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active div:nth-child(3) {
-        transform: rotate(-45deg) translate(0, -8px);
-    }
-
-    /* Fullscreen menu */
-    .fullscreen-menu {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #fff;
-        z-index: 90;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .fullscreen-menu a {
-        text-decoration: none;
-        color: #111;
-        font-size: 2rem;
-        margin: 20px 0;
-        font-weight: 600;
-        transition: 0.2s;
-    }
-
-    .fullscreen-menu a:hover {
-        opacity: 0.6;
-    }
-
-    /* Hero section */
-    .hero {
-        height: 100vh;
-        background: url('photo1.jpg') center/cover no-repeat;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        color: white;
-        position: relative;
-    }
-
-    .hero::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba(0,0,0,0.4);
-    }
-
-    .hero-text {
-        position: relative;
-        z-index: 1;
-    }
-
-    .hero-text h1 {
-        font-size: 4rem;
-        margin: 0;
-        animation: fadeInUp 1s ease forwards;
-    }
-
-    .hero-text p {
-        font-size: 1.5rem;
-        margin: 10px 0 20px 0;
-        animation: fadeInUp 1s 0.5s ease forwards;
-        opacity: 0;
-    }
-
-    .hero-text .btn {
-        padding: 12px 30px;
-        background: #111;
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
-        border-radius: 4px;
-        transition: 0.3s;
-        animation: fadeInUp 1s 1s ease forwards;
-        opacity: 0;
-    }
-
-    .hero-text .btn:hover {
-        opacity: 0.8;
-    }
-
-    @keyframes fadeInUp {
-        0% { opacity: 0; transform: translateY(20px); }
-        100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Gallery */
-    .gallery {
-        max-width: 1200px;
-        margin: 60px auto;
-        padding: 0 20px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-    }
-
-    .gallery img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        border-radius: 6px;
-        transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
-        opacity: 0;
-    }
-
-    .gallery img:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-
-    /* Contact & Pricing */
-    section {
-        padding: 80px 20px;
-        max-width: 800px;
-        margin: auto;
-    }
-
-    h2 {
-        text-align: center;
-        margin-bottom: 40px;
-        font-size: 2.5rem;
-    }
-
-    .contact-form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 1rem;
-        width: 100%;
-    }
-
-    .contact-form button {
-        padding: 12px;
-        background: #111;
-        color: #fff;
-        border: none;
-        font-size: 1rem;
-        cursor: pointer;
-        border-radius: 4px;
-        transition: 0.3s;
-    }
-
-    .contact-form button:hover {
-        opacity: 0.8;
-    }
-
-    .pricing {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        margin-top: 20px;
-    }
-
-    .pricing-item {
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        text-align: center;
-    }
-
-    .pricing-item h3 {
-        margin: 0 0 10px 0;
-    }
-
-    .pricing-item p {
-        margin: 0;
-        font-weight: 600;
-        font-size: 1.2rem;
-    }
-
-    /* Footer */
-    footer {
-        text-align: center;
-        padding: 40px 20px;
-        font-size: 14px;
-        opacity: 0.6;
-    }
-
-    footer a {
-        color: #111;
-        text-decoration: underline;
-    }
-</style>
-</head>
-<body>
-
-<header>
-    <div class="logo">Yuliya Komarovska</div>
-    <div class="hamburger" id="hamburger">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-</header>
-
-<nav class="fullscreen-menu" id="fullscreenMenu">
-    <a href="#">Home</a>
-    <a href="#gallery">Portfolio</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#contact">Contact</a>
-</nav>
-
-<section class="hero">
-    <div class="hero-text">
-        <h1>Yuliya Komarovska</h1>
-        <p>Professional Photographer</p>
-        <a href="#gallery" class="btn">View Portfolio</a>
-    </div>
-</section>
-
-<section class="gallery" id="gallery">
-    <img src="photo0.jpg" alt="Photo 1" class="fade">
-    <img src="photo2.jpg" alt="Photo 2" class="fade">
-    <img src="photo3.jpg" alt="Photo 3" class="fade">
-    <img src="photo4.jpg" alt="Photo 4" class="fade">
-    <img src="photo5.jpg" alt="Photo 5" class="fade">
-    <img src="photo6.jpg" alt="Photo 6" class="fade">
-    <img src="photo7.jpg" alt="Photo 7" class="fade">
-    <img src="photo8.jpg" alt="Photo 8" class="fade">
-    <img src="photo9.jpg" alt="Photo 9" class="fade">
-</section>
-
 <!-- Pricing Section -->
 <section id="pricing">
     <h2>Pricing</h2>
@@ -300,14 +5,17 @@
         <div class="pricing-item">
             <h3>Basic Session</h3>
             <p>$150</p>
+            <p>1 hour photoshoot, 10 edited photos</p>
         </div>
         <div class="pricing-item">
             <h3>Full Session</h3>
             <p>$300</p>
+            <p>2 hours photoshoot, 25 edited photos</p>
         </div>
         <div class="pricing-item">
             <h3>Wedding Package</h3>
             <p>$1000</p>
+            <p>Full day coverage, 100+ edited photos</p>
         </div>
     </div>
 </section>
@@ -316,57 +24,83 @@
 <section id="contact">
     <h2>Contact</h2>
     <form class="contact-form" action="mailto:youremail@example.com" method="post">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
+        <div class="form-row">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+        </div>
         <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
         <button type="submit">Send Message</button>
     </form>
 </section>
 
-<footer>
-    © 2025 Yuliya Komarovska — 760 8155193 <br>
-    <a href="https://shorturl.at/DXZn7" target="_blank">Instagram</a>
-</footer>
+<style>
+/* Pricing */
+.pricing {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.pricing-item {
+    flex: 1 1 250px;
+    background: #f8f8f8;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.pricing-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+.pricing-item h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+.pricing-item p {
+    margin: 5px 0;
+    font-size: 1.1rem;
+}
 
-<script>
-    const hamburger = document.getElementById('hamburger');
-    const fullscreenMenu = document.getElementById('fullscreenMenu');
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        fullscreenMenu.style.display = fullscreenMenu.style.display === 'flex' ? 'none' : 'flex';
-    });
-
-    fullscreenMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            fullscreenMenu.style.display = 'none';
-            hamburger.classList.remove('active');
-        });
-    });
-
-    window.addEventListener('click', (e) => {
-        if (!hamburger.contains(e.target) && !fullscreenMenu.contains(e.target)) {
-            fullscreenMenu.style.display = 'none';
-            hamburger.classList.remove('active');
-        }
-    });
-
-    // Появление картинок при скролле
-    const galleryImages = document.querySelectorAll('.gallery img');
-
-    const appearOnScroll = () => {
-        const triggerBottom = window.innerHeight * 0.85;
-        galleryImages.forEach(img => {
-            const imgTop = img.getBoundingClientRect().top;
-            if(imgTop < triggerBottom) {
-                img.style.opacity = 1;
-            }
-        });
-    }
-
-    window.addEventListener('scroll', appearOnScroll);
-    appearOnScroll(); // для картинок в видимой области при загрузке
-</script>
-
-</body>
-</html>
+/* Contact Form */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: auto;
+}
+.form-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.contact-form input,
+.contact-form textarea {
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    flex: 1 1 45%;
+    width: 100%;
+    box-sizing: border-box;
+}
+.contact-form textarea {
+    flex: 1 1 100%;
+}
+.contact-form button {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+.contact-form button:hover {
+    background: #333;
+}
+</style>
